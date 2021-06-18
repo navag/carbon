@@ -8,7 +8,7 @@
 import React from 'react';
 import ProgressBar from './ProgressBar';
 import { render } from '@testing-library/react';
-import { settings } from 'carbon-components';
+import { settings } from '@rocketsoftware/carbon-components';
 
 const { prefix } = settings;
 
