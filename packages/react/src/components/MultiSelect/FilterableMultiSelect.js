@@ -203,9 +203,27 @@ export default class FilterableMultiSelect extends React.Component {
       topItems: [],
       inputFocused: false,
       highlightedIndex: null,
+      listBoxId: null,
     };
     this.textInput = React.createRef();
   }
+
+  onListBoxMenuRefChange = (node) => {
+    if (node) {
+      this.setState({ listBoxId: node.id });
+      document.getElementById(node.id) &&
+        document
+          .getElementById(node.id)
+          .addEventListener('mouseleave', () =>
+            this.setState({ highlightedIndex: null })
+          );
+    } else {
+      document.getElementById(this.state.listBoxId) &&
+        document
+          .getElementById(this.state.listBoxId)
+          .removeEventListener('mouseleave', () => {});
+    }
+  };
 
   handleOnChange = (changes) => {
     if (this.props.onChange) {
@@ -217,6 +235,9 @@ export default class FilterableMultiSelect extends React.Component {
     this.setState((state) => ({
       isOpen: isOpen ?? !state.isOpen,
     }));
+    if (!isOpen) {
+      this.setState({ highlightedIndex: null });
+    }
     if (this.props.onMenuChange) {
       this.props.onMenuChange(isOpen);
     }
@@ -238,6 +259,7 @@ export default class FilterableMultiSelect extends React.Component {
       case stateChangeTypes.keyDownArrowDown:
       case stateChangeTypes.keyDownArrowUp:
       case stateChangeTypes.keyDownHome:
+      case stateChangeTypes.itemMouseEnter:
       case stateChangeTypes.keyDownEnd:
         this.setState({
           highlightedIndex:
@@ -546,7 +568,9 @@ export default class FilterableMultiSelect extends React.Component {
                       />
                     </div>
                     {isOpen ? (
-                      <ListBox.Menu {...menuProps}>
+                      <ListBox.Menu
+                        {...menuProps}
+                        ref={this.onListBoxMenuRefChange}>
                         {sortItems(
                           filterItems(items, { itemToString, inputValue }),
                           {
