@@ -210,18 +210,9 @@ export default class FilterableMultiSelect extends React.Component {
 
   onListBoxMenuRefChange = (node) => {
     if (node) {
-      this.setState({ listBoxId: node.id });
-      document.getElementById(node.id) &&
-        document
-          .getElementById(node.id)
-          .addEventListener('mouseleave', () =>
-            this.setState({ highlightedIndex: null })
-          );
-    } else {
-      document.getElementById(this.state.listBoxId) &&
-        document
-          .getElementById(this.state.listBoxId)
-          .removeEventListener('mouseleave', () => {});
+      node.addEventListener('mouseleave', () =>
+        this.setState({ highlightedIndex: null })
+      );
     }
   };
 
