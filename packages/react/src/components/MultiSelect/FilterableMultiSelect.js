@@ -203,7 +203,6 @@ export default class FilterableMultiSelect extends React.Component {
       topItems: [],
       inputFocused: false,
       highlightedIndex: null,
-      listBoxId: null,
     };
     this.textInput = React.createRef();
   }
