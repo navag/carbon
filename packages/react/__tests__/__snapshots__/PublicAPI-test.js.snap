@@ -4402,6 +4402,7 @@ Map {
       "itemRangeText": [Function],
       "itemText": [Function],
       "itemsPerPageText": "Items per page:",
+      "menuPlacement": "auto",
       "page": 1,
       "pageNumberText": "Page Number",
       "pageRangeText": [Function],
@@ -4445,6 +4446,16 @@ Map {
       },
       "itemsPerPageText": Object {
         "type": "string",
+      },
+      "menuPlacement": Object {
+        "args": Array [
+          Array [
+            "auto",
+            "top",
+            "bottom",
+          ],
+        ],
+        "type": "oneOf",
       },
       "onChange": Object {
         "type": "func",

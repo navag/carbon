@@ -100,6 +100,11 @@ export default class Pagination extends Component {
     itemsPerPageText: PropTypes.string,
 
     /**
+     * The placement of dropdwon either in top or bottom direction. By default its auto.
+     */
+    menuPlacement: PropTypes.oneOf(['auto', 'top', 'bottom']),
+
+    /**
      * The callback function called when the current page changes.
      */
     onChange: PropTypes.func,
@@ -174,6 +179,7 @@ export default class Pagination extends Component {
     isLastPage: false,
     itemText: (min, max) => `${min}–${max} items`,
     pageText: (page) => `page ${page}`,
+    menuPlacement: 'auto',
   };
 
   static getDerivedStateFromProps(
@@ -301,6 +307,7 @@ export default class Pagination extends Component {
       pageInputDisabled,
       pageSizeInputDisabled,
       totalItems,
+      menuPlacement,
       onChange, // eslint-disable-line no-unused-vars
       page: pageNumber, // eslint-disable-line no-unused-vars
       ...other
@@ -379,7 +386,7 @@ export default class Pagination extends Component {
             styles={this.customStyles}
             isDisabled={pageInputDisabled || disabled}
             onChange={this.handlePageInputChange}
-            menuPlacement={'auto'}
+            menuPlacement={menuPlacement}
           />
           <span className={`${prefix}--pagination__text`}>
             {pagesUnknown
